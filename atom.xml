@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>goldginkgo&#39;s Blog</title>
+  
+  <subtitle>Will Code For Food</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://goldginkgo.me/"/>
+  <updated>2018-01-11T12:22:21.220Z</updated>
+  <id>http://goldginkgo.me/</id>
+  
+  <author>
+    <name>goldginkgo</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>How to Set up a Blog With Hexo and Github Pages</title>
+    <link href="http://goldginkgo.me/2017/04/04/set-up-blog/"/>
+    <id>http://goldginkgo.me/2017/04/04/set-up-blog/</id>
+    <published>2017-04-04T11:32:18.000Z</published>
+    <updated>2018-01-11T12:22:21.220Z</updated>
+    
+    <content type="html"><![CDATA[<p>Here are a list of tutorials which I referred to when setting up my blog.<br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a><br><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">NexT</a><br><a href="http://jeasonstudio.github.io/2016/05/26/Mac%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8EGitHub-Page%E7%9A%84Hexo%E5%8D%9A%E5%AE%A2/" target="_blank" rel="noopener">Mac上搭建基于GitHub Page的Hexo博客</a><br><a href="http://www.lzblog.cn/2016/04/07/Hexo%E7%AB%99%E7%82%B9%E3%80%81NexT%E4%B8%BB%E9%A2%98%E4%BF%AE%E6%94%B9%E5%85%A8%E8%AE%B0%E5%BD%95/" target="_blank" rel="noopener">Hexo站点、NexT主题修改全记录</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Here are a list of tutorials which I referred to when setting up my blog.&lt;br&gt;&lt;a href=&quot;https://hexo.io/zh-cn/&quot; target=&quot;_blank&quot; rel=&quot;noopen
+      
+    
+    </summary>
+    
+    
+      <category term="Hexo" scheme="http://goldginkgo.me/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git Basics</title>
+    <link href="http://goldginkgo.me/2017/03/24/git-basics/"/>
+    <id>http://goldginkgo.me/2017/03/24/git-basics/</id>
+    <published>2017-03-24T11:03:01.000Z</published>
+    <updated>2018-01-11T12:30:34.599Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="What-is-Git"><a href="#What-is-Git" class="headerlink" title="What is Git?"></a>What is Git?</h3><p>Distributed version control system and source code management system.<br>Git can keep track of changes.</p><h3 id="GIT-vs-SVN"><a href="#GIT-vs-SVN" class="headerlink" title="GIT vs SVN?"></a>GIT vs SVN?</h3><p>SVN uses a central server to store all files and enables team collaboration.<br>If the central server goes down, no one can collaborate at all.  </p><p>Git checkout fully mirror the repository.<br>If the server goes down, then the repository from any client can be copied back to the server to restore it. And we can perform many operations when you are offline.</p><a id="more"></a><h3 id="Advantages-of-GIT"><a href="#Advantages-of-GIT" class="headerlink" title="Advantages of GIT?"></a>Advantages of GIT?</h3><p>Free and open source<br>Fast and small ( most of the operations are performed locally)<br>Implicit backup ( Data on any client side mirrors the repository)<br>Easier branching (CVCS will copy all the codes to the new branch, so it is time-consuming)</p><h3 id="How-can-conflict-in-git-resolved"><a href="#How-can-conflict-in-git-resolved" class="headerlink" title="How can conflict in git resolved?"></a>How can conflict in git resolved?</h3><p>To resolve the conflict in git, edit the files to fix the conflicting changes and then add the resolved files by running “git add” after that to commit the repaired merge,  run “git commit”.  Git remembers that you are in the middle of a merger, so it sets the parents of the commit correctly.</p><h3 id="What-is-git-rebase-and-how-can-it-be-used-to-resolve-conflicts-in-a-feature-branch-before-merge"><a href="#What-is-git-rebase-and-how-can-it-be-used-to-resolve-conflicts-in-a-feature-branch-before-merge" class="headerlink" title="What is git rebase and how can it be used to resolve conflicts in a feature branch before merge?"></a>What is git rebase and how can it be used to resolve conflicts in a feature branch before merge?</h3><p>In simple words, git rebase allows one to move the first commit of a branch to a new starting location. For example, if a feature branch was created from master, and since then the master branch has received new commits, git rebase can be used to move the feature branch to the top of master. The command effectively will replay the changes made in the feature branch at the top of master, allowing conflicts to be resolved in the process. When done with care, this will allow the feature branch to be merged into master with relative ease and sometimes as a simple fast-forward operation.</p><h3 id="Git-workflow-the-following-may-not-fully-correct"><a href="#Git-workflow-the-following-may-not-fully-correct" class="headerlink" title="Git workflow (the following may not fully correct)"></a>Git workflow (the following may not fully correct)</h3><p>clone the Git repository as a working copy<br>modify the working copy by adding/editing files<br>update the working copy by taking other developer’s changes<br>review the changes before commit.<br>commit changes. If everything is fine, then you push the changes to the repository<br>if you realize something is wrong, then you correct the last commit and push the changes to the repository  </p><ol><li>Create a branch of Master</li><li>Work</li><li>Merge it back to Master when done</li></ol><p>Working Directory -&gt; Staging Area -&gt; Repository  </p><p>git init<br>git status(inspects the contents of the working directory and staging area)<br>git add file1 file2<br>git add -A<br>git diff( shows differences between the working directory and the staging area)<br>git diff –staged( Shows the changes between HEAD (latest commit on current branch) and staging directory)<br>git diff HEAD(Shows the deltas between HEAD and working dir )<br>git commit -m “”<br>git log<br>git show HEAD  </p><h3 id="backtrack-in-Git"><a href="#backtrack-in-Git" class="headerlink" title="backtrack in Git"></a>backtrack in Git</h3><p>git checkout HEAD filename (Discards changes in the working directory.)<br>git reset HEAD filename (Unstages file changes in the staging area.)<br>git reset commit_SHA (reset to a previous commit in your commit history.)<br>git revert HEAD<br>git commit –amend</p><h3 id="Git-branch"><a href="#Git-branch" class="headerlink" title="Git branch"></a>Git branch</h3><p>git branch<br>git branch branch-name<br>git checkout branch-name<br>git checkout -b branch_name<br>git merge branch-name<br>git branch -d branch_name<br>git rebase  </p><h3 id="Git-teamwork"><a href="#Git-teamwork" class="headerlink" title="Git teamwork"></a>Git teamwork</h3><p>A remote is a shared Git repository that allows multiple collaborators to work on the same Git project from different locations.<br>git clone remote_location clone_name<br>git remote -v<br>git fetch<br>git merge orgin/master<br>git push origin your_branch_name  </p><p><a href="http://career.guru99.com/top-40-interview-questions-on-git/" target="_blank" rel="noopener">Top 45 GIT Interview Questions &amp; Answers</a><br><a href="http://blog.jobbole.com/88955/" target="_blank" rel="noopener">Git 使用规范流程</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;What-is-Git&quot;&gt;&lt;a href=&quot;#What-is-Git&quot; class=&quot;headerlink&quot; title=&quot;What is Git?&quot;&gt;&lt;/a&gt;What is Git?&lt;/h3&gt;&lt;p&gt;Distributed version control system and source code management system.&lt;br&gt;Git can keep track of changes.&lt;/p&gt;
+&lt;h3 id=&quot;GIT-vs-SVN&quot;&gt;&lt;a href=&quot;#GIT-vs-SVN&quot; class=&quot;headerlink&quot; title=&quot;GIT vs SVN?&quot;&gt;&lt;/a&gt;GIT vs SVN?&lt;/h3&gt;&lt;p&gt;SVN uses a central server to store all files and enables team collaboration.&lt;br&gt;If the central server goes down, no one can collaborate at all.  &lt;/p&gt;
+&lt;p&gt;Git checkout fully mirror the repository.&lt;br&gt;If the server goes down, then the repository from any client can be copied back to the server to restore it. And we can perform many operations when you are offline.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tools" scheme="http://goldginkgo.me/categories/Tools/"/>
+    
+    
+      <category term="Git" scheme="http://goldginkgo.me/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://goldginkgo.me/2017/03/23/hello-world/"/>
+    <id>http://goldginkgo.me/2017/03/23/hello-world/</id>
+    <published>2017-03-23T12:12:18.000Z</published>
+    <updated>2018-01-11T13:26:39.878Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
