@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://goldginkgo.me/"/>
-  <updated>2018-01-11T12:22:21.220Z</updated>
+  <updated>2018-02-08T12:42:15.058Z</updated>
   <id>http://goldginkgo.me/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Set up Shadowsocks to Visit Google</title>
+    <link href="http://goldginkgo.me/2018/02/08/shadowsocks/"/>
+    <id>http://goldginkgo.me/2018/02/08/shadowsocks/</id>
+    <published>2018-02-08T11:18:08.000Z</published>
+    <updated>2018-02-08T12:42:15.058Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Register for a cheap VPS provider. I will take <a href="https://www.vultr.com" target="_blank" rel="noopener">Vultr</a> for example.</li><li>Upload your SSH key to Vultr. An SSH Key allows you to log into your server without needing a password. SSH Keys can be automatically added to servers during the installation process.</li><li>Create a Ubuntu host in your VPS with your SSH key specified, and set location to places where have access to Google. (e.g. Los Angeles)</li><li><p>Login to VPS host and install shadowsocks service. <a href="http://queirozf.com/entries/disabling-ssh-timeout-when-connecting-to-from-ubuntu" target="_blank" rel="noopener">Disable ssh timeout</a>.  </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ssh -i ~/.ssh/id_rsa root@&lt;vps-ip&gt;</span></span><br><span class="line"><span class="comment"># apt-get install python-pip -y</span></span><br><span class="line"><span class="comment"># wget https://bootstrap.pypa.io/ez_setup.py -O - | sudo python</span></span><br><span class="line"><span class="comment"># pip install setuptools --upgrade</span></span><br><span class="line"><span class="comment"># pip install shadowsocks</span></span><br><span class="line"><span class="comment"># iptables -F</span></span><br></pre></td></tr></table></figure></li><li><p>Create a new configuration file for shadowsocks.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># vi /etc/shadowsocks.json</span><br><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;: &quot;&lt;vps-ip&gt;&quot;,</span><br><span class="line">    &quot;server_port&quot;: &lt;your-port-number(e.g.8899)&gt;,</span><br><span class="line">    &quot;local_address&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;: 1080,</span><br><span class="line">    &quot;password&quot;: &quot;&lt;shadows-password-for-client&gt;&quot;,</span><br><span class="line">    &quot;timeout&quot;: 300,</span><br><span class="line">    &quot;method&quot;: &quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>Start/Stop shadowsocks in the background.<br>Logs for shadowsocks are in /var/log/shadowsocks.log.</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c /etc/shadowsocks.json -d start</span><br><span class="line">ssserver -c /etc/shadowsocks.json -d stop</span><br></pre></td></tr></table></figure></li><li><p>Downlocad <a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases" target="_blank" rel="noopener">MacOS Client</a>, install, and enter server IP, port, password information in client.</p></li><li>If you want to use shadowsocks proxy in command line:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=http://127.0.0.1:1087</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://127.0.0.1:1087</span><br></pre></td></tr></table></figure></li></ol><p>Reference:<br><a href="https://www.flyzy2005.cn/fan-qiang/shadowsocks/build-shadowsocks-on-vps/" target="_blank" rel="noopener">A Chinese Guide</a><br><a href="https://shadowsocks.org/en/index.html" target="_blank" rel="noopener">shadowsocks Official Website</a><br><a href="https://github.com/shadowsocks" target="_blank" rel="noopener">shadowsocks Github</a><br><a href="https://github.com/shadowsocks/shadowsocks/wiki" target="_blank" rel="noopener">shadowsocks wiki</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;Register for a cheap VPS provider. I will take &lt;a href=&quot;https://www.vultr.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Vultr&lt;/a&gt; for example
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>How to Set up a Blog With Hexo and Github Pages</title>
