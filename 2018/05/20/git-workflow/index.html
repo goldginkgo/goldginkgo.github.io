@@ -118,7 +118,7 @@
 
 
 
-  <title>Archive | goldginkgo's Blog</title>
+  <title>Git Workflow in Gitlab | goldginkgo's Blog</title>
   
 
 
@@ -137,7 +137,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     
@@ -248,78 +248,243 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 9 posts in total. Keep on posting.
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://goldginkgo.github.io/2018/05/20/git-workflow/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="goldginkgo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="goldginkgo's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/02/08/shadowsocks/" itemprop="url">
-              
-                <span itemprop="name">Setup Shadowsocks to Visit Google in China</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Git Workflow in Gitlab</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-08T19:18:08+08:00"
-              content="2018-02-08" >
-          02-08
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-20T21:05:01+08:00">2018-05-20</time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DevOps/" itemprop="url" rel="index">
+                    <span itemprop="name">DevOps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>A Git Workflow is a recipe or recommendation for how to use Git to accomplish work in a consistent and productive manner.</p>
+<p>There are different kinds of Git workflows. But here we suggest the following Git workflow to be used.</p>
+<p>In the future, we will move towards trunk based development.</p>
+<ol>
+<li><p>Clone a repository.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://&lt;url&gt;.git</span><br><span class="line">cd &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a branch for a specific task.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;branch-name&gt;</span><br><span class="line">create a feature branch:  git checkout -b feature/&lt;name&gt;</span><br><span class="line">create a bug-fix branch:  git checkout -b bug/&lt;name&gt;</span><br><span class="line">create a release branch:  git checkout -b release/1.0</span><br><span class="line">create a bug-fix branch from a release branch: git checkout -b release/1.0  release/1.0/&lt;name&gt;</span><br><span class="line">create branch from a tag: git checkout -b &lt;Hotfix branch&gt; &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>After code development in our local machine, do proper testing and commit changes to our local branch.<br><a href="https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53" target="_blank" rel="noopener">A guideline to commit messages</a></p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;&lt;commit-message&gt;&quot;</span><br><span class="line"></span><br><span class="line">Undo a change: https://blog.github.com/2015-06-08-how-to-undo-almost-anything-with-git/</span><br><span class="line">change a commit message https://help.github.com/articles/changing-a-commit-message/</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>Rebase our new branch with master. (<a href="https://docs.gitlab.com/ee/university/training/topics/merge_conflicts.html" target="_blank" rel="noopener">https://docs.gitlab.com/ee/university/training/topics/merge_conflicts.html</a>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull origin master</span><br><span class="line">git checkout &lt;branch-name&gt;</span><br><span class="line">git rebase master</span><br><span class="line">If there are conflicts, fix conflicts in the files.</span><br><span class="line">git add .</span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Push local branch to remote repository. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a merge request on master branch.</p>
+</li>
+<li><p>Review the commit and merge the code if it’s ok.<br>If testing for master branch fails, go back to step 3.</p>
+</li>
+<li><p>Create <a href="https://docs.gitlab.com/ee/university/training/topics/tags.html" target="_blank" rel="noopener">tags</a> and <a href="https://docs.gitlab.com/ee/workflow/releases.html" target="_blank" rel="noopener">releases</a>.</p>
+</li>
+</ol>
+<p>Future Reading:</p>
+<p><a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">Gitflow model</a></p>
+<p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows" target="_blank" rel="noopener">Comparing Workflows</a></p>
+<p><a href="https://paulhammant.com/2013/04/05/what-is-trunk-based-development/" target="_blank" rel="noopener">What is Trunk-Based Development?</a></p>
+<p><a href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener">Trunk based development</a></p>
+<p><a href="https://www.toptal.com/software/trunk-based-development-git-flow" target="_blank" rel="noopener">Trunk-based Development vs. Git Flow</a></p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Donate comment here</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="goldginkgo Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/08/shadowsocks/" rel="next" title="Setup Shadowsocks to Visit Google in China">
+                <i class="fa fa-chevron-left"></i> Setup Shadowsocks to Visit Google in China
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/03/Setup-Concourse-in-Ubuntu-from-scratch-with-Proxy/" rel="prev" title="Setup Concourse in Ubuntu from scratch with Proxy">
+                Setup Concourse in Ubuntu from scratch with Proxy <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -579,6 +744,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
 
   
 
