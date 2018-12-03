@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="Here is guide on how to setup Kubernetes 1.12 using minikube 0.30 on MacOS.  Setup shadowsocks, change shadowsocks “HTTP proxy listen ip” to local ip. e.g 192.168.1.107. Use ‘ipconfig getifaddr en0’ c">
-<meta name="keywords" content="Kubernetes">
+  <meta name="description" content="According to Understanding Container Security, each container in Cloud Foundry use a fair share of CPU relative to the other containers. However, an app container can use much higher CPU resources whe">
+<meta name="keywords" content="Cloud Foundry">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Setup Kuberntes using minikube on MacOS">
-<meta property="og:url" content="http://goldginkgo.github.io/2018/11/01/Setup-kuberntes-using-minikube-on-MacOS/index.html">
+<meta property="og:title" content="How to find apps with high CPU usage for a Diego cell VM.">
+<meta property="og:url" content="http://goldginkgo.github.io/2018/06/30/How-to-find-apps-with-high-CPU-usage-for-a-Diego-cell-VM/index.html">
 <meta property="og:site_name" content="goldginkgo&#39;s Blog">
-<meta property="og:description" content="Here is guide on how to setup Kubernetes 1.12 using minikube 0.30 on MacOS.  Setup shadowsocks, change shadowsocks “HTTP proxy listen ip” to local ip. e.g 192.168.1.107. Use ‘ipconfig getifaddr en0’ c">
+<meta property="og:description" content="According to Understanding Container Security, each container in Cloud Foundry use a fair share of CPU relative to the other containers. However, an app container can use much higher CPU resources whe">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-03T13:57:00.337Z">
+<meta property="og:updated_time" content="2018-12-03T13:57:57.232Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Setup Kuberntes using minikube on MacOS">
-<meta name="twitter:description" content="Here is guide on how to setup Kubernetes 1.12 using minikube 0.30 on MacOS.  Setup shadowsocks, change shadowsocks “HTTP proxy listen ip” to local ip. e.g 192.168.1.107. Use ‘ipconfig getifaddr en0’ c">
+<meta name="twitter:title" content="How to find apps with high CPU usage for a Diego cell VM.">
+<meta name="twitter:description" content="According to Understanding Container Security, each container in Cloud Foundry use a fair share of CPU relative to the other containers. However, an app container can use much higher CPU resources whe">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="http://goldginkgo.github.io/2018/11/01/Setup-kuberntes-using-minikube-on-MacOS/">
+  <link rel="canonical" href="http://goldginkgo.github.io/2018/06/30/How-to-find-apps-with-high-CPU-usage-for-a-Diego-cell-VM/">
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>Setup Kuberntes using minikube on MacOS | goldginkgo's Blog</title>
+  <title>How to find apps with high CPU usage for a Diego cell VM. | goldginkgo's Blog</title>
   
 
 
@@ -379,7 +379,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://goldginkgo.github.io/2018/11/01/Setup-kuberntes-using-minikube-on-MacOS/">
+    <link itemprop="mainEntityOfPage" href="http://goldginkgo.github.io/2018/06/30/How-to-find-apps-with-high-CPU-usage-for-a-Diego-cell-VM/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="goldginkgo">
@@ -396,7 +396,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Setup Kuberntes using minikube on MacOS
+          <h1 class="post-title" itemprop="name headline">How to find apps with high CPU usage for a Diego cell VM.
               
             
           </h1>
@@ -421,12 +421,30 @@
                 
               
 
-              <time title="Created: 2018-11-01 20:01:06" itemprop="dateCreated datePublished" datetime="2018-11-01T20:01:06+08:00">2018-11-01</time>
+              <time title="Created: 2018-06-30 18:56:10" itemprop="dateCreated datePublished" datetime="2018-06-30T18:56:10+08:00">2018-06-30</time>
             
 
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -449,7 +467,7 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                <span title="Symbols count in article">1.1k</span>
+                <span title="Symbols count in article">5.6k</span>
               
 
               
@@ -461,7 +479,7 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                <span title="Reading time">1 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -481,30 +499,32 @@
       
 
       
-        <p>Here is guide on how to setup Kubernetes 1.12 using minikube 0.30 on MacOS.</p>
-<ol>
-<li><p>Setup shadowsocks, change shadowsocks “HTTP proxy listen ip” to local ip. e.g 192.168.1.107. Use ‘ipconfig getifaddr en0’ command to check IP.</p>
-</li>
-<li><p>Open terminal, set proxy.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export http_proxy=http://192.168.1.107:1087;export https_proxy=http://192.168.1.107:1087;export no_proxy=localhost,127.0.0.0/8,192.0.0.0/8;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+        <p>According to <a href="https://docs.cloudfoundry.org/concepts/container-security.html" target="_blank" rel="noopener">Understanding Container Security</a>, each container in Cloud Foundry use a fair share of CPU relative to the other containers. However, an app container can use much higher CPU resources when other containers in the same Diego Cell VM are idle if we don’t set limitation for CPU usage of app containsers.</p>
+<p>It would be rather difficult to figure out the apps that is causing the trouble if we don’t have application level monitoring.</p>
 <a id="more"></a>
+<p>One way to achieve our goal is to use Cloud Foundry <a href="https://github.com/ECSTeam/cloudfoundry-top-plugin" target="_blank" rel="noopener">top</a> plugin. But here I also want to show the procedures on how to do it manually.</p>
+<p>Before we actually start, I want to give some steps on how to find the Diego Cell VM information based on an application instace.</p>
 <ol>
-<li><p>Install and start docker</p>
+<li><p>cf login to your org and space, use commands below to get IP address of the cell. CPU and Memory usage is also shown in this command.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$ cf app web-app-bb --guid</span><br><span class="line">c07cf94e-3c43-41b6-9e1b-e77231fa2058</span><br><span class="line">$ cf curl /v2/apps/c07cf94e-3c43-41b6-9e1b-e77231fa2058/stats</span><br><span class="line">&#123;</span><br><span class="line">   &quot;0&quot;: &#123;</span><br><span class="line">      &quot;state&quot;: &quot;RUNNING&quot;,</span><br><span class="line">      &quot;isolation_segment&quot;: null,</span><br><span class="line">      &quot;stats&quot;: &#123;</span><br><span class="line">         &quot;name&quot;: &quot;web-app-bb&quot;,</span><br><span class="line">         &quot;uris&quot;: [</span><br><span class="line">            &quot;web-app-bb.apps.&lt;url&gt;&quot;</span><br><span class="line">         ],</span><br><span class="line">         &quot;host&quot;: &quot;10.48.16.166&quot;,</span><br><span class="line">         &quot;port&quot;: 61001,</span><br><span class="line">         &quot;uptime&quot;: 114,</span><br><span class="line">         &quot;mem_quota&quot;: 67108864,</span><br><span class="line">         &quot;disk_quota&quot;: 1073741824,</span><br><span class="line">         &quot;fds_quota&quot;: 16384,</span><br><span class="line">         &quot;usage&quot;: &#123;</span><br><span class="line">            &quot;time&quot;: &quot;2018-12-02T08:25:52+00:00&quot;,</span><br><span class="line">            &quot;cpu&quot;: 0.0036034101653391625,</span><br><span class="line">            &quot;mem&quot;: 16740352,</span><br><span class="line">            &quot;disk&quot;: 185126912</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Execute following command to setup minikube.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube start --vm-driver=hyperkit --kubernetes-version v1.12.1 --docker-env HTTP_PROXY=http://192.168.1.107:1087 --docker-env HTTPS_PROXY=http://192.168.1.107:1087 --docker-env NO_PROXY=localhost,127.0.0.0/8,192.0.0.0/8;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Here are a list of commands that maybe useful for debugging the setup if error occurs.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">minikube ssh</span><br><span class="line">docker ps -a</span><br><span class="line">docker logs &lt;container&gt;</span><br><span class="line"></span><br><span class="line">kubectl get pods --all-namespaces</span><br><span class="line">kubectl logs -n kube-system &lt;pod&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Open Kubenetes dashboard using <code>minikube dashboard</code> command.</p>
-</li>
-<li><p>If you want to delete minikube and Kubernetes, use following command.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube stop &amp;&amp; minikube delete &amp;&amp; rm -rf ~/.minikube ~/.kube</span><br></pre></td></tr></table></figure>
+<li><p>Login to Bosh, and execute the following command to ssh to the Diego cell VM.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ bosh -e pcf log-in</span><br><span class="line">$ bosh -e pcf -d cf-c16bf7a74c8a95e1e6eb vms | grep 10.48.16.166</span><br><span class="line">diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd                         running PCF-QA-AZ3  10.48.16.166    vm-dd56c1cc-1edf-44a7-81ff-6ce22a32d9dc ert.custom2     -</span><br><span class="line">$ bosh -e pcf -d cf-c16bf7a74c8a95e1e6eb ssh diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<p>Now let’s go on with the steps to find applications based on the Deigo cell VM.</p>
+<ol>
+<li><p>Login to Diego cell VM and check the stats on the VM. You will get resulst like following, first half of process_guid is the actuall App GUID.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd:~$ cd /var/vcap/jobs/rep/config/certs; curl -k -s https://localhost:1801/state --cert server.crt --key server.key | python -m json.tool</span><br><span class="line">&#123;</span><br><span class="line">    &quot;AvailableResources&quot;: &#123;</span><br><span class="line">        &quot;Containers&quot;: 236,</span><br><span class="line">        &quot;DiskMB&quot;: 173866,</span><br><span class="line">        &quot;MemoryMB&quot;: 52485</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;Evacuating&quot;: false,</span><br><span class="line">    &quot;LRPs&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;DiskMB&quot;: 1024,</span><br><span class="line">            &quot;MaxPids&quot;: 0,</span><br><span class="line">            &quot;MemoryMB&quot;: 1024,</span><br><span class="line">            &quot;PlacementTags&quot;: null,</span><br><span class="line">            &quot;RootFs&quot;: &quot;preloaded:cflinuxfs2&quot;,</span><br><span class="line">            &quot;VolumeDrivers&quot;: [],</span><br><span class="line">            &quot;domain&quot;: &quot;cf-apps&quot;,</span><br><span class="line">            &quot;index&quot;: 0,</span><br><span class="line">            &quot;instance_guid&quot;: &quot;30525d4f-81ab-4cf3-7c61-bb6f&quot;,</span><br><span class="line">            &quot;process_guid&quot;: &quot;75a52aba-3eab-429a-ad6f-160619241e2d-55c2deda-cf67-4d2b-9f1c-8daf2bbeeea0&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">...</span><br><span class="line">    &quot;TotalResources&quot;: &#123;</span><br><span class="line">        &quot;Containers&quot;: 249,</span><br><span class="line">        &quot;DiskMB&quot;: 184938,</span><br><span class="line">        &quot;MemoryMB&quot;: 64429</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Get all app GUIDs using commands below.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd:/var/vcap/jobs/rep/config/certs$ cd /var/vcap/jobs/rep/config/certs; curl -k -s https://localhost:1801/state --cert server.crt --key server.key | python -m json.tool | grep &quot;process_guid&quot; |cut -d &apos;:&apos; -f2|cut -c 3-38</span><br><span class="line">c07cf94e-3c43-41b6-9e1b-e77231fa2058</span><br><span class="line">656cd296-b2f4-4c4d-a82d-8079763d3e8a</span><br><span class="line">5f159b3d-6e61-4d00-9fca-deee3f035c57</span><br><span class="line">40b135af-c7c7-4ebd-af2e-984b2b5ce262</span><br><span class="line">382ce123-c13c-472f-ab74-5265dc984714</span><br><span class="line">2044e186-63bd-494e-8559-e28fd3e35e28</span><br><span class="line">0409effc-f11a-4dc7-a6e4-15282e234a53</span><br><span class="line">fcf52090-7c8a-45db-90f6-29f25fa0be53</span><br><span class="line">048b4d26-4652-4c85-8015-4bb2be42aeff</span><br><span class="line">8e3ba265-a0df-4b07-a34a-aaea3158e090</span><br><span class="line">75a52aba-3eab-429a-ad6f-160619241e2d</span><br><span class="line">d048268a-e60b-481a-a5cc-ff39fdbf1eb2</span><br><span class="line">e7428432-b459-4111-b813-4fb6dfc7884f</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Login to Cloud Foundry with admin account and using following shell script to get apps names. app_guids is a file with contents from previous step.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">filename=&quot;app_guids&quot;</span><br><span class="line">cat $filename | while read LINE</span><br><span class="line">do</span><br><span class="line">   echo $LINE</span><br><span class="line">   cf curl /v2/apps/$LINE | grep &quot;\&quot;name\&quot;:&quot;</span><br><span class="line">   cf curl /v2/apps/$LINE | grep &quot;\&quot;cpu\&quot;:&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Here is a sample result:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ sh script</span><br><span class="line">c07cf94e-3c43-41b6-9e1b-e77231fa2058</span><br><span class="line">      &quot;name&quot;: &quot;web-app-bb&quot;,</span><br><span class="line">            &quot;cpu&quot;: 0.0026490531155109625,</span><br><span class="line">656cd296-b2f4-4c4d-a82d-8079763d3e8a</span><br><span class="line">      &quot;name&quot;: &quot;connection-test&quot;,</span><br><span class="line">            &quot;cpu&quot;: 0.0008588435074484718,</span><br><span class="line">            &quot;cpu&quot;: 0.0009525608833325616,</span><br><span class="line">0409effc-f11a-4dc7-a6e4-15282e234a53</span><br><span class="line">      &quot;name&quot;: &quot;apps-manager-js-blue&quot;,</span><br><span class="line">            &quot;cpu&quot;: 7.13585021377469e-06,</span><br><span class="line">            &quot;cpu&quot;: 8.020481371308023e-06,</span><br><span class="line">            &quot;cpu&quot;: 7.091829884025554e-06,</span><br><span class="line">            &quot;cpu&quot;: 0.0,</span><br><span class="line">            &quot;cpu&quot;: 0.0,</span><br><span class="line">            &quot;cpu&quot;: 0.0,</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -552,7 +572,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Kubernetes/" rel="tag"># Kubernetes</a>
+            <a href="/tags/Cloud-Foundry/" rel="tag"># Cloud Foundry</a>
           
         </div>
       
@@ -565,8 +585,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/17/How-to-Use-Cloud-Foundry-Services-From-outside-the-Cloud-Envivonment/" rel="next" title="How to Use Cloud Foundry Services From outside the Cloud Envivonment">
-                <i class="fa fa-chevron-left"></i> How to Use Cloud Foundry Services From outside the Cloud Envivonment
+              <a href="/2018/05/20/git-workflow/" rel="next" title="Git Workflow in Gitlab">
+                <i class="fa fa-chevron-left"></i> Git Workflow in Gitlab
               </a>
             
           </div>
@@ -575,8 +595,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/03/Setup-K8S-with-kubeadm-in-CentOS-VMs/" rel="prev" title="Setup Kubernetes with kubeadm in CentOS VMs">
-                Setup Kubernetes with kubeadm in CentOS VMs <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/03/Setup-Concourse-in-Ubuntu-from-scratch-with-Proxy/" rel="prev" title="Setup Concourse in Ubuntu from scratch with Proxy">
+                Setup Concourse in Ubuntu from scratch with Proxy <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
