@@ -113,17 +113,17 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git Workflow in Gitlab">
 <meta property="og:url" content="http://goldginkgo.github.io/2018/05/20/git-workflow/index.html">
-<meta property="og:site_name" content="goldginkgo&#39;s Blog">
+<meta property="og:site_name" content="Frank&#39;s Blog">
 <meta property="og:description" content="A Git Workflow is a recipe or recommendation for how to use Git to accomplish work in a consistent and productive manner. There are different kinds of Git workflows. But here we suggest the following">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-03T13:56:23.897Z">
+<meta property="og:updated_time" content="2018-12-04T00:01:16.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git Workflow in Gitlab">
 <meta name="twitter:description" content="A Git Workflow is a recipe or recommendation for how to use Git to accomplish work in a consistent and productive manner. There are different kinds of Git workflows. But here we suggest the following">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="goldginkgo's Blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Frank's Blog" type="application/atom+xml">
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>Git Workflow in Gitlab | goldginkgo's Blog</title>
+  <title>Git Workflow in Gitlab | Frank's Blog</title>
   
 
 
@@ -198,7 +198,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">goldginkgo's Blog</span>
+        <span class="site-title">Frank's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -382,13 +382,13 @@
     <link itemprop="mainEntityOfPage" href="http://goldginkgo.github.io/2018/05/20/git-workflow/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="goldginkgo">
-      <meta itemprop="description" content="Hope is a good thing.">
+      <meta itemprop="name" content="Frank Dai">
+      <meta itemprop="description" content="Coding, DevOps, Cloud">
       <meta itemprop="image" content="/uploads/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="goldginkgo's Blog">
+      <meta itemprop="name" content="Frank's Blog">
     </span>
 
     
@@ -467,7 +467,7 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                <span title="Symbols count in article">1.9k</span>
+                <span title="Symbols count in article">1.8k</span>
               
 
               
@@ -500,36 +500,16 @@
 
       
         <p>A Git Workflow is a recipe or recommendation for how to use Git to accomplish work in a consistent and productive manner.</p>
-<p>There are different kinds of Git workflows. But here we suggest the following Git workflow to be used.</p>
+<p>There are different kinds of Git workflows. But here we suggest the following Git workflow to be used.<br><a id="more"></a></p>
 <p>In the future, we will move towards trunk based development.</p>
-<a id="more"></a>
-<ol>
-<li><p>Clone a repository.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://&lt;url&gt;.git</span><br><span class="line">cd &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Create a branch for a specific task.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;branch-name&gt;</span><br><span class="line">create a feature branch:  git checkout -b feature/&lt;name&gt;</span><br><span class="line">create a bug-fix branch:  git checkout -b bug/&lt;name&gt;</span><br><span class="line">create a release branch:  git checkout -b release/1.0</span><br><span class="line">create a bug-fix branch from a release branch: git checkout -b release/1.0  release/1.0/&lt;name&gt;</span><br><span class="line">create branch from a tag: git checkout -b &lt;Hotfix branch&gt; &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>After code development in our local machine, do proper testing and commit changes to our local branch.<br><a href="https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53" target="_blank" rel="noopener">A guideline to commit messages</a></p>
-</li>
-</ol>
+<h3 id="Clone-a-repository"><a href="#Clone-a-repository" class="headerlink" title="Clone a repository"></a>Clone a repository</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://&lt;url&gt;.git</span><br><span class="line">cd &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Create-a-branch"><a href="#Create-a-branch" class="headerlink" title="Create a branch"></a>Create a branch</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;branch-name&gt;</span><br><span class="line">create a feature branch:  git checkout -b feature/&lt;name&gt;</span><br><span class="line">create a bug-fix branch:  git checkout -b bug/&lt;name&gt;</span><br><span class="line">create a release branch:  git checkout -b release/1.0</span><br><span class="line">create a bug-fix branch from a release branch: git checkout -b release/1.0  release/1.0/&lt;name&gt;</span><br><span class="line">create branch from a tag: git checkout -b &lt;Hotfix branch&gt; &lt;TAG&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Commit-to-local-branch"><a href="#Commit-to-local-branch" class="headerlink" title="Commit to local branch"></a>Commit to local branch</h3><p>After code development in our local machine, do proper testing and commit changes to our local branch<br><a href="https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53" target="_blank" rel="noopener">A guideline to commit messages</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;&lt;commit-message&gt;&quot;</span><br><span class="line"></span><br><span class="line">Undo a change: https://blog.github.com/2015-06-08-how-to-undo-almost-anything-with-git/</span><br><span class="line">change a commit message https://help.github.com/articles/changing-a-commit-message/</span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>Rebase our new branch with master. (<a href="https://docs.gitlab.com/ee/university/training/topics/merge_conflicts.html" target="_blank" rel="noopener">https://docs.gitlab.com/ee/university/training/topics/merge_conflicts.html</a>)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull origin master</span><br><span class="line">git checkout &lt;branch-name&gt;</span><br><span class="line">git rebase master</span><br><span class="line">If there are conflicts, fix conflicts in the files.</span><br><span class="line">git add .</span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Push local branch to remote repository. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Create a merge request on master branch.</p>
-</li>
-<li><p>Review the commit and merge the code if it’s ok.<br>If testing for master branch fails, go back to step 3.</p>
-</li>
-<li><p>Create <a href="https://docs.gitlab.com/ee/university/training/topics/tags.html" target="_blank" rel="noopener">tags</a> and <a href="https://docs.gitlab.com/ee/workflow/releases.html" target="_blank" rel="noopener">releases</a>.</p>
-</li>
-</ol>
-<p>Future Reading:</p>
-<p><a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">Gitflow model</a></p>
+<h3 id="Rebase-new-branch-with-master"><a href="#Rebase-new-branch-with-master" class="headerlink" title="Rebase new branch with master"></a>Rebase new branch with master</h3><p><a href="https://docs.gitlab.com/ee/university/training/topics/merge_conflicts.html" target="_blank" rel="noopener">https://docs.gitlab.com/ee/university/training/topics/merge_conflicts.html</a>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git pull origin master</span><br><span class="line">git checkout &lt;branch-name&gt;</span><br><span class="line">git rebase master</span><br><span class="line">If there are conflicts, fix conflicts in the files.</span><br><span class="line">git add .</span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure></p>
+<h3 id="Push-local-branch-to-remote-repository"><a href="#Push-local-branch-to-remote-repository" class="headerlink" title="Push local branch to remote repository"></a>Push local branch to remote repository</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;branch-name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Create-a-merge-request-on-master-branch"><a href="#Create-a-merge-request-on-master-branch" class="headerlink" title="Create a merge request on master branch"></a>Create a merge request on master branch</h3><h3 id="Review-the-commit-and-merge-the-code-if-it’s-ok"><a href="#Review-the-commit-and-merge-the-code-if-it’s-ok" class="headerlink" title="Review the commit and merge the code if it’s ok"></a>Review the commit and merge the code if it’s ok</h3><p>If testing for master branch fails, go back to step 3.</p>
+<h3 id="Create-tags-and-releases"><a href="#Create-tags-and-releases" class="headerlink" title="Create tags and releases"></a>Create <a href="https://docs.gitlab.com/ee/university/training/topics/tags.html" target="_blank" rel="noopener">tags</a> and <a href="https://docs.gitlab.com/ee/workflow/releases.html" target="_blank" rel="noopener">releases</a></h3><h3 id="Future-Reading"><a href="#Future-Reading" class="headerlink" title="Future Reading"></a>Future Reading</h3><p><a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">Gitflow model</a></p>
 <p><a href="https://www.atlassian.com/git/tutorials/comparing-workflows" target="_blank" rel="noopener">Comparing Workflows</a></p>
 <p><a href="https://paulhammant.com/2013/04/05/what-is-trunk-based-development/" target="_blank" rel="noopener">What is Trunk-Based Development?</a></p>
 <p><a href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener">Trunk based development</a></p>
@@ -562,7 +542,7 @@
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="goldginkgo Alipay">
+        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="Frank Dai Alipay">
         <p>Alipay</p>
       </div>
     
@@ -651,15 +631,24 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="goldginkgo">
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="Frank Dai">
             
-              <p class="site-author-name" itemprop="name">goldginkgo</p>
-              <p class="site-description motion-element" itemprop="description">Hope is a good thing.</p>
+              <p class="site-author-name" itemprop="name">Frank Dai</p>
+              <p class="site-description motion-element" itemprop="description">Coding, DevOps, Cloud</p>
           </div>
 
           
@@ -792,6 +781,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Clone-a-repository"><span class="nav-number">1.</span> <span class="nav-text">Clone a repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-branch"><span class="nav-number">2.</span> <span class="nav-text">Create a branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Commit-to-local-branch"><span class="nav-number">3.</span> <span class="nav-text">Commit to local branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rebase-new-branch-with-master"><span class="nav-number">4.</span> <span class="nav-text">Rebase new branch with master</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Push-local-branch-to-remote-repository"><span class="nav-number">5.</span> <span class="nav-text">Push local branch to remote repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-merge-request-on-master-branch"><span class="nav-number">6.</span> <span class="nav-text">Create a merge request on master branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Review-the-commit-and-merge-the-code-if-it’s-ok"><span class="nav-number">7.</span> <span class="nav-text">Review the commit and merge the code if it’s ok</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-tags-and-releases"><span class="nav-number">8.</span> <span class="nav-text">Create tags and releases</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Future-Reading"><span class="nav-number">9.</span> <span class="nav-text">Future Reading</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -816,7 +821,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">goldginkgo</span>
+  <span class="author" itemprop="copyrightHolder">Frank Dai</span>
 
   
     <span class="post-meta-divider">|</span>
@@ -824,7 +829,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">24k</span>
+    <span title="Symbols count total">25k</span>
   
 
   

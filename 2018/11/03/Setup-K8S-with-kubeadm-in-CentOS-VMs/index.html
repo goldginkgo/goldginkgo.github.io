@@ -108,22 +108,22 @@
 
 
 
-  <meta name="description" content="Here is a guide on how to setup Kubernetes on two CentOS 7 VMs (master and node).  Stop firewall/selinux (both) 1sed -i &amp;apos;s/SELINUX=enforcing/SELINUX=disabled/g&amp;apos; /etc/selinux/config  Ensure s">
+  <meta name="description" content="Here is a guide on how to setup Kubernetes on two CentOS 7 VMs (master and node).">
 <meta name="keywords" content="Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Setup Kubernetes with kubeadm in CentOS VMs">
 <meta property="og:url" content="http://goldginkgo.github.io/2018/11/03/Setup-K8S-with-kubeadm-in-CentOS-VMs/index.html">
-<meta property="og:site_name" content="goldginkgo&#39;s Blog">
-<meta property="og:description" content="Here is a guide on how to setup Kubernetes on two CentOS 7 VMs (master and node).  Stop firewall/selinux (both) 1sed -i &amp;apos;s/SELINUX=enforcing/SELINUX=disabled/g&amp;apos; /etc/selinux/config  Ensure s">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="Here is a guide on how to setup Kubernetes on two CentOS 7 VMs (master and node).">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-03T13:56:54.455Z">
+<meta property="og:updated_time" content="2018-12-04T00:24:03.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Setup Kubernetes with kubeadm in CentOS VMs">
-<meta name="twitter:description" content="Here is a guide on how to setup Kubernetes on two CentOS 7 VMs (master and node).  Stop firewall/selinux (both) 1sed -i &amp;apos;s/SELINUX=enforcing/SELINUX=disabled/g&amp;apos; /etc/selinux/config  Ensure s">
+<meta name="twitter:description" content="Here is a guide on how to setup Kubernetes on two CentOS 7 VMs (master and node).">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="goldginkgo's Blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Frank's Blog" type="application/atom+xml">
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>Setup Kubernetes with kubeadm in CentOS VMs | goldginkgo's Blog</title>
+  <title>Setup Kubernetes with kubeadm in CentOS VMs | Frank's Blog</title>
   
 
 
@@ -198,7 +198,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">goldginkgo's Blog</span>
+        <span class="site-title">Frank's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -382,13 +382,13 @@
     <link itemprop="mainEntityOfPage" href="http://goldginkgo.github.io/2018/11/03/Setup-K8S-with-kubeadm-in-CentOS-VMs/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="goldginkgo">
-      <meta itemprop="description" content="Hope is a good thing.">
+      <meta itemprop="name" content="Frank Dai">
+      <meta itemprop="description" content="Coding, DevOps, Cloud">
       <meta itemprop="image" content="/uploads/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="goldginkgo's Blog">
+      <meta itemprop="name" content="Frank's Blog">
     </span>
 
     
@@ -467,7 +467,7 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                <span title="Symbols count in article">3.2k</span>
+                <span title="Symbols count in article">3.1k</span>
               
 
               
@@ -499,45 +499,20 @@
       
 
       
-        <p>Here is a guide on how to setup Kubernetes on two CentOS 7 VMs (master and node).</p>
-<ol>
-<li><p>Stop firewall/selinux (both)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &apos;s/SELINUX=enforcing/SELINUX=disabled/g&apos; /etc/selinux/config</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Ensure swap is off. Add comment in fstab (both)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#/dev/mapper/centos-swap swap                    swap    defaults        0 0</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+        <p>Here is a guide on how to setup Kubernetes on two CentOS 7 VMs (master and node).<br><a id="more"></a></p>
+<h3 id="Stop-firewall-selinux-both"><a href="#Stop-firewall-selinux-both" class="headerlink" title="Stop firewall/selinux (both)"></a>Stop firewall/selinux (both)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &apos;s/SELINUX=enforcing/SELINUX=disabled/g&apos; /etc/selinux/config</span><br></pre></td></tr></table></figure>
+<h3 id="Ensure-swap-is-off-both"><a href="#Ensure-swap-is-off-both" class="headerlink" title="Ensure swap is off (both)"></a>Ensure swap is off (both)</h3><p>Add comment in fstab<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#/dev/mapper/centos-swap swap                    swap    defaults        0 0</span><br></pre></td></tr></table></figure></p>
 <p>Execute <code>swapoff -a</code>.</p>
-<a id="more"></a>
-<ol>
-<li><p>Enable IP forwarding or iptables. (both)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">EOF</span><br><span class="line">sysctl --system</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Install Docker (both). Reference: <a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"># sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"># sudo yum install -y docker-ce</span><br><span class="line"># sudo systemctl start docker</span><br><span class="line"># sudo systemctl enable docker</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Installing kubeadm, kubelet and kubectl (both). Reference: <a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/" target="_blank" rel="noopener">https://kubernetes.io/docs/setup/independent/install-kubeadm/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg</span><br><span class="line">exclude=kube*</span><br><span class="line">EOF</span><br><span class="line">setenforce 0</span><br><span class="line">yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes</span><br><span class="line">systemctl enable kubelet &amp;&amp; systemctl start kubelet</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Initializing your master (master)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init</span><br><span class="line"></span><br><span class="line">mkdir -p $HOME/.kube</span><br><span class="line">sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config</span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME/.kube/config</span><br><span class="line"></span><br><span class="line">export KUBECONFIG=/etc/kubernetes/admin.conf</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Installing a pod network add-on (master)  (Wave Net)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.bridge.bridge-nf-call-iptables=1</span><br><span class="line">kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &apos;\n&apos;)&quot;</span><br><span class="line">kubectl get pods --all-namespaces</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Joining your nodes(node)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join &lt;master-ip&gt;:6443 --token zt5yjr.zutab0w4uczftlm8 --discovery-token-ca-cert-hash sha256:a34dc33567e0e169cdc0366303fb409d030dfd01602973ae482e9ef4969f2962</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Dashboard (master)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>storage (master). Rook</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/operator.yaml</span><br><span class="line"></span><br><span class="line">$ kubectl apply -f https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/cluster.yaml</span><br><span class="line">$ kubectl get pods -n rook-ceph-system</span><br><span class="line"></span><br><span class="line">$ kubectl get pods -n rook-ceph</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>11.Deploy first app<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># vi nginx-deployment.yaml</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx-deployment</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: nginx</span><br><span class="line">  replicas: 2</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: nginx</span><br><span class="line">        image: nginx:1.7.9</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br><span class="line"># kubectl create -f nginx-deployment.yaml</span><br><span class="line"># kubectl get pods</span><br></pre></td></tr></table></figure></p>
-<p>12.Expose a service<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># kubectl expose deployment nginx-deployment --type=LoadBalancer</span><br><span class="line"># kubectl get services</span><br></pre></td></tr></table></figure></p>
+<h3 id="Enable-IP-forwarding-or-iptables-both"><a href="#Enable-IP-forwarding-or-iptables-both" class="headerlink" title="Enable IP forwarding or iptables. (both)"></a>Enable IP forwarding or iptables. (both)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">EOF</span><br><span class="line">sysctl --system</span><br></pre></td></tr></table></figure>
+<h3 id="Install-Docker-both"><a href="#Install-Docker-both" class="headerlink" title="Install Docker (both)"></a>Install Docker (both)</h3><p>Reference: <a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line"># sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line"># sudo yum install -y docker-ce</span><br><span class="line"># sudo systemctl start docker</span><br><span class="line"># sudo systemctl enable docker</span><br></pre></td></tr></table></figure></p>
+<h3 id="Installing-kubeadm-kubelet-and-kubectl-both"><a href="#Installing-kubeadm-kubelet-and-kubectl-both" class="headerlink" title="Installing kubeadm, kubelet and kubectl (both)"></a>Installing kubeadm, kubelet and kubectl (both)</h3><p>Reference: <a href="https://kubernetes.io/docs/setup/independent/install-kubeadm/" target="_blank" rel="noopener">https://kubernetes.io/docs/setup/independent/install-kubeadm/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg</span><br><span class="line">exclude=kube*</span><br><span class="line">EOF</span><br><span class="line">setenforce 0</span><br><span class="line">yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes</span><br><span class="line">systemctl enable kubelet &amp;&amp; systemctl start kubelet</span><br></pre></td></tr></table></figure></p>
+<h3 id="Initializing-master-node-master"><a href="#Initializing-master-node-master" class="headerlink" title="Initializing master node (master)"></a>Initializing master node (master)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init</span><br><span class="line"></span><br><span class="line">mkdir -p $HOME/.kube</span><br><span class="line">sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config</span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME/.kube/config</span><br><span class="line"></span><br><span class="line">export KUBECONFIG=/etc/kubernetes/admin.conf</span><br></pre></td></tr></table></figure>
+<h3 id="Installing-a-pod-network-add-on-master-Wave-Net"><a href="#Installing-a-pod-network-add-on-master-Wave-Net" class="headerlink" title="Installing a pod network add-on (master)  (Wave Net)"></a>Installing a pod network add-on (master)  (Wave Net)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.bridge.bridge-nf-call-iptables=1</span><br><span class="line">kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &apos;\n&apos;)&quot;</span><br><span class="line">kubectl get pods --all-namespaces</span><br></pre></td></tr></table></figure>
+<h3 id="Joining-your-nodes-node"><a href="#Joining-your-nodes-node" class="headerlink" title="Joining your nodes(node)"></a>Joining your nodes(node)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join &lt;master-ip&gt;:6443 --token zt5yjr.zutab0w4uczftlm8 --discovery-token-ca-cert-hash sha256:a34dc33567e0e169cdc0366303fb409d030dfd01602973ae482e9ef4969f2962</span><br></pre></td></tr></table></figure>
+<h3 id="Dashboard-master"><a href="#Dashboard-master" class="headerlink" title="Dashboard (master)"></a>Dashboard (master)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml</span><br></pre></td></tr></table></figure>
+<h3 id="storage-master-Rook"><a href="#storage-master-Rook" class="headerlink" title="storage (master). Rook"></a>storage (master). Rook</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/operator.yaml</span><br><span class="line"></span><br><span class="line">$ kubectl apply -f https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/ceph/cluster.yaml</span><br><span class="line">$ kubectl get pods -n rook-ceph-system</span><br><span class="line"></span><br><span class="line">$ kubectl get pods -n rook-ceph</span><br></pre></td></tr></table></figure>
+<h3 id="Deploy-first-app"><a href="#Deploy-first-app" class="headerlink" title="Deploy first app"></a>Deploy first app</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># vi nginx-deployment.yaml</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx-deployment</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: nginx</span><br><span class="line">  replicas: 2</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: nginx</span><br><span class="line">        image: nginx:1.7.9</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br><span class="line"># kubectl create -f nginx-deployment.yaml</span><br><span class="line"># kubectl get pods</span><br></pre></td></tr></table></figure>
+<h3 id="Expose-a-service"><a href="#Expose-a-service" class="headerlink" title="Expose a service"></a>Expose a service</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># kubectl expose deployment nginx-deployment --type=LoadBalancer</span><br><span class="line"># kubectl get services</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -566,7 +541,7 @@
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="goldginkgo Alipay">
+        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="Frank Dai Alipay">
         <p>Alipay</p>
       </div>
     
@@ -651,15 +626,24 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="goldginkgo">
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="Frank Dai">
             
-              <p class="site-author-name" itemprop="name">goldginkgo</p>
-              <p class="site-description motion-element" itemprop="description">Hope is a good thing.</p>
+              <p class="site-author-name" itemprop="name">Frank Dai</p>
+              <p class="site-description motion-element" itemprop="description">Coding, DevOps, Cloud</p>
           </div>
 
           
@@ -792,6 +776,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Stop-firewall-selinux-both"><span class="nav-number">1.</span> <span class="nav-text">Stop firewall/selinux (both)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ensure-swap-is-off-both"><span class="nav-number">2.</span> <span class="nav-text">Ensure swap is off (both)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enable-IP-forwarding-or-iptables-both"><span class="nav-number">3.</span> <span class="nav-text">Enable IP forwarding or iptables. (both)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Docker-both"><span class="nav-number">4.</span> <span class="nav-text">Install Docker (both)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Installing-kubeadm-kubelet-and-kubectl-both"><span class="nav-number">5.</span> <span class="nav-text">Installing kubeadm, kubelet and kubectl (both)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Initializing-master-node-master"><span class="nav-number">6.</span> <span class="nav-text">Initializing master node (master)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Installing-a-pod-network-add-on-master-Wave-Net"><span class="nav-number">7.</span> <span class="nav-text">Installing a pod network add-on (master)  (Wave Net)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Joining-your-nodes-node"><span class="nav-number">8.</span> <span class="nav-text">Joining your nodes(node)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dashboard-master"><span class="nav-number">9.</span> <span class="nav-text">Dashboard (master)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#storage-master-Rook"><span class="nav-number">10.</span> <span class="nav-text">storage (master). Rook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-first-app"><span class="nav-number">11.</span> <span class="nav-text">Deploy first app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expose-a-service"><span class="nav-number">12.</span> <span class="nav-text">Expose a service</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -816,7 +816,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">goldginkgo</span>
+  <span class="author" itemprop="copyrightHolder">Frank Dai</span>
 
   
     <span class="post-meta-divider">|</span>
@@ -824,7 +824,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">24k</span>
+    <span title="Symbols count total">25k</span>
   
 
   

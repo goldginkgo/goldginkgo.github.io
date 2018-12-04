@@ -108,22 +108,22 @@
 
 
 
-  <meta name="description" content="Register for a cheap VPS provider. I will take Vultr for example.  Upload your SSH key to Vultr. An SSH Key allows you to log into your server without needing a password. SSH Keys can be automaticall">
+  <meta name="description" content="Here is a guilde on how to setup Shadowssocks to visit blocked websites like Google in China.">
 <meta name="keywords" content="VPN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Setup Shadowsocks to Visit Google in China">
 <meta property="og:url" content="http://goldginkgo.github.io/2018/02/08/shadowsocks/index.html">
-<meta property="og:site_name" content="goldginkgo&#39;s Blog">
-<meta property="og:description" content="Register for a cheap VPS provider. I will take Vultr for example.  Upload your SSH key to Vultr. An SSH Key allows you to log into your server without needing a password. SSH Keys can be automaticall">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="Here is a guilde on how to setup Shadowssocks to visit blocked websites like Google in China.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-03T13:57:07.598Z">
+<meta property="og:updated_time" content="2018-12-04T00:07:29.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Setup Shadowsocks to Visit Google in China">
-<meta name="twitter:description" content="Register for a cheap VPS provider. I will take Vultr for example.  Upload your SSH key to Vultr. An SSH Key allows you to log into your server without needing a password. SSH Keys can be automaticall">
+<meta name="twitter:description" content="Here is a guilde on how to setup Shadowssocks to visit blocked websites like Google in China.">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="goldginkgo's Blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Frank's Blog" type="application/atom+xml">
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>Setup Shadowsocks to Visit Google in China | goldginkgo's Blog</title>
+  <title>Setup Shadowsocks to Visit Google in China | Frank's Blog</title>
   
 
 
@@ -198,7 +198,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">goldginkgo's Blog</span>
+        <span class="site-title">Frank's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -382,13 +382,13 @@
     <link itemprop="mainEntityOfPage" href="http://goldginkgo.github.io/2018/02/08/shadowsocks/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="goldginkgo">
-      <meta itemprop="description" content="Hope is a good thing.">
+      <meta itemprop="name" content="Frank Dai">
+      <meta itemprop="description" content="Coding, DevOps, Cloud">
       <meta itemprop="image" content="/uploads/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="goldginkgo's Blog">
+      <meta itemprop="name" content="Frank's Blog">
     </span>
 
     
@@ -449,7 +449,7 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                <span title="Symbols count in article">2k</span>
+                <span title="Symbols count in article">2.1k</span>
               
 
               
@@ -481,27 +481,13 @@
       
 
       
-        <ol>
-<li><p>Register for a cheap VPS provider. I will take <a href="https://www.vultr.com" target="_blank" rel="noopener">Vultr</a> for example.</p>
-</li>
-<li><p>Upload your SSH key to Vultr. An SSH Key allows you to log into your server without needing a password. SSH Keys can be automatically added to servers during the installation process.</p>
-</li>
-<li><p>Create a Ubuntu 18.04 host in your VPS with your SSH key specified, and set location to places where have access to Google. (e.g. Los Angeles)</p>
-</li>
-</ol>
-<a id="more"></a>
-<ol>
-<li><p>Login to VPS host and install shadowsocks service. <a href="http://queirozf.com/entries/disabling-ssh-timeout-when-connecting-to-from-ubuntu" target="_blank" rel="noopener">Disable ssh timeout</a>.</p>
-</li>
-<li><p>Execute the following script, or add this script as startup script when creating the vm. Logs for shadowsocks are in /var/log/shadowsocks.log.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deploy Ubuntu 18.04 VM</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#echo -e "ClientAliveInterval 600\nTCPKeepAlive yes\nClientAliveCountMax 10" &gt;&gt; /etc/ssh/sshd_config</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get install python-pip -y</span><br><span class="line">apt-get install -y python-setuptools</span><br><span class="line">pip install git+https://github.com/shadowsocks/shadowsocks.git@master</span><br><span class="line"><span class="comment">#pip install shadowsocks</span></span><br><span class="line"></span><br><span class="line">sudo ufw <span class="built_in">disable</span></span><br><span class="line"></span><br><span class="line">IP=$(hostname -I)</span><br><span class="line">cat &gt; /etc/shadowsocks.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>: <span class="string">"<span class="variable">$IP</span>"</span>,</span><br><span class="line">    <span class="string">"server_port"</span>: <span class="string">"8899"</span>,</span><br><span class="line">    <span class="string">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"local_port"</span>: 1080,</span><br><span class="line">    <span class="string">"password"</span>: <span class="string">"asdf_1234"</span>,</span><br><span class="line">    <span class="string">"timeout"</span>: 300,</span><br><span class="line">    <span class="string">"method"</span>: <span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="string">"fast_open"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># TCP BBR</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br><span class="line"></span><br><span class="line">ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Download <a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases" target="_blank" rel="noopener">MacOS Client</a>, install, and enter server IP, port, password information in client. Change shadowsocks “HTTP proxy listen ip” to local ip. e.g 192.168.1.107. use ‘ipconfig getifaddr en0’ command to get IP.</p>
-</li>
-<li><p>If you want to use shadowsocks proxy in command line:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=http://192.168.1.107:1087;<span class="built_in">export</span> https_proxy=http://192.168.1.107:1087;<span class="built_in">export</span> no_proxy=localhost,127.0.0.0/8,192.0.0.0/8;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+        <p>Here is a guilde on how to setup Shadowssocks to visit blocked websites like Google in China.<br><a id="more"></a></p>
+<h3 id="Register-for-a-VPS-provider"><a href="#Register-for-a-VPS-provider" class="headerlink" title="Register for a VPS provider"></a>Register for a VPS provider</h3><p>I will take <a href="https://www.vultr.com" target="_blank" rel="noopener">Vultr</a> for example.</p>
+<h3 id="Upload-your-SSH-key-to-Vultr"><a href="#Upload-your-SSH-key-to-Vultr" class="headerlink" title="Upload your SSH key to Vultr"></a>Upload your SSH key to Vultr</h3><p>An SSH Key allows you to log into your server without needing a password. SSH Keys can be automatically added to servers during the installation process.</p>
+<h3 id="Create-a-Ubuntu-18-04-VM"><a href="#Create-a-Ubuntu-18-04-VM" class="headerlink" title="Create a Ubuntu 18.04 VM"></a>Create a Ubuntu 18.04 VM</h3><p>Create a Ubuntu 18.04 VM in your VPS with your SSH key specified, and set location to places where have access to Google. (e.g. Los Angeles)</p>
+<h3 id="Disable-ssh-timeout"><a href="#Disable-ssh-timeout" class="headerlink" title="Disable ssh timeout."></a><a href="http://queirozf.com/entries/disabling-ssh-timeout-when-connecting-to-from-ubuntu" target="_blank" rel="noopener">Disable ssh timeout</a>.</h3><h3 id="Install-shadowsocks-service-on-VPS-host"><a href="#Install-shadowsocks-service-on-VPS-host" class="headerlink" title="Install shadowsocks service on VPS host"></a>Install shadowsocks service on VPS host</h3><p>Execute the following script, or add this script as startup script when creating the vm. Logs for shadowsocks are in /var/log/shadowsocks.log.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deploy Ubuntu 18.04 VM</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#echo -e "ClientAliveInterval 600\nTCPKeepAlive yes\nClientAliveCountMax 10" &gt;&gt; /etc/ssh/sshd_config</span></span><br><span class="line">apt-get update</span><br><span class="line">apt-get install python-pip -y</span><br><span class="line">apt-get install -y python-setuptools</span><br><span class="line">pip install git+https://github.com/shadowsocks/shadowsocks.git@master</span><br><span class="line"><span class="comment">#pip install shadowsocks</span></span><br><span class="line"></span><br><span class="line">sudo ufw <span class="built_in">disable</span></span><br><span class="line"></span><br><span class="line">IP=$(hostname -I)</span><br><span class="line">cat &gt; /etc/shadowsocks.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>: <span class="string">"<span class="variable">$IP</span>"</span>,</span><br><span class="line">    <span class="string">"server_port"</span>: <span class="string">"8899"</span>,</span><br><span class="line">    <span class="string">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"local_port"</span>: 1080,</span><br><span class="line">    <span class="string">"password"</span>: <span class="string">"asdf_1234"</span>,</span><br><span class="line">    <span class="string">"timeout"</span>: 300,</span><br><span class="line">    <span class="string">"method"</span>: <span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="string">"fast_open"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment"># TCP BBR</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br><span class="line"></span><br><span class="line">ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure></p>
+<h3 id="Setup-client-on-your-laptop"><a href="#Setup-client-on-your-laptop" class="headerlink" title="Setup client on your laptop"></a>Setup client on your laptop</h3><p>Download <a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases" target="_blank" rel="noopener">MacOS Client</a>, install, and enter server IP, port, password information in client. Change shadowsocks “HTTP proxy listen ip” to local ip. e.g 192.168.1.107. use ‘ipconfig getifaddr en0’ command to get IP.</p>
+<h3 id="Use-shadowsocks-proxy-in-command-line"><a href="#Use-shadowsocks-proxy-in-command-line" class="headerlink" title="Use shadowsocks proxy in command line"></a>Use shadowsocks proxy in command line</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=http://192.168.1.107:1087;<span class="built_in">export</span> https_proxy=http://192.168.1.107:1087;<span class="built_in">export</span> no_proxy=localhost,127.0.0.0/8,192.0.0.0/8;</span><br></pre></td></tr></table></figure>
 <p>Reference:</p>
 <p><a href="https://www.flyzy2005.cn/fan-qiang/shadowsocks/build-shadowsocks-on-vps/" target="_blank" rel="noopener">A Chinese Guide</a></p>
 <p><a href="https://shadowsocks.org/en/index.html" target="_blank" rel="noopener">shadowsocks Official Website</a></p>
@@ -535,7 +521,7 @@
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="goldginkgo Alipay">
+        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="Frank Dai Alipay">
         <p>Alipay</p>
       </div>
     
@@ -624,15 +610,24 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="goldginkgo">
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="Frank Dai">
             
-              <p class="site-author-name" itemprop="name">goldginkgo</p>
-              <p class="site-description motion-element" itemprop="description">Hope is a good thing.</p>
+              <p class="site-author-name" itemprop="name">Frank Dai</p>
+              <p class="site-description motion-element" itemprop="description">Coding, DevOps, Cloud</p>
           </div>
 
           
@@ -765,6 +760,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Register-for-a-VPS-provider"><span class="nav-number">1.</span> <span class="nav-text">Register for a VPS provider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Upload-your-SSH-key-to-Vultr"><span class="nav-number">2.</span> <span class="nav-text">Upload your SSH key to Vultr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-Ubuntu-18-04-VM"><span class="nav-number">3.</span> <span class="nav-text">Create a Ubuntu 18.04 VM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Disable-ssh-timeout"><span class="nav-number">4.</span> <span class="nav-text">Disable ssh timeout.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-shadowsocks-service-on-VPS-host"><span class="nav-number">5.</span> <span class="nav-text">Install shadowsocks service on VPS host</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-client-on-your-laptop"><span class="nav-number">6.</span> <span class="nav-text">Setup client on your laptop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-shadowsocks-proxy-in-command-line"><span class="nav-number">7.</span> <span class="nav-text">Use shadowsocks proxy in command line</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -789,7 +800,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">goldginkgo</span>
+  <span class="author" itemprop="copyrightHolder">Frank Dai</span>
 
   
     <span class="post-meta-divider">|</span>
@@ -797,7 +808,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">24k</span>
+    <span title="Symbols count total">25k</span>
   
 
   

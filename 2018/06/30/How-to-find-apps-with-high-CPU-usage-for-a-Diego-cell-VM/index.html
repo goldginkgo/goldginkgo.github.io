@@ -113,17 +113,17 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to find apps with high CPU usage for a Diego cell VM.">
 <meta property="og:url" content="http://goldginkgo.github.io/2018/06/30/How-to-find-apps-with-high-CPU-usage-for-a-Diego-cell-VM/index.html">
-<meta property="og:site_name" content="goldginkgo&#39;s Blog">
+<meta property="og:site_name" content="Frank&#39;s Blog">
 <meta property="og:description" content="According to Understanding Container Security, each container in Cloud Foundry use a fair share of CPU relative to the other containers. However, an app container can use much higher CPU resources whe">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-03T13:57:57.232Z">
+<meta property="og:updated_time" content="2018-12-04T00:12:08.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to find apps with high CPU usage for a Diego cell VM.">
 <meta name="twitter:description" content="According to Understanding Container Security, each container in Cloud Foundry use a fair share of CPU relative to the other containers. However, an app container can use much higher CPU resources whe">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="goldginkgo's Blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Frank's Blog" type="application/atom+xml">
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>How to find apps with high CPU usage for a Diego cell VM. | goldginkgo's Blog</title>
+  <title>How to find apps with high CPU usage for a Diego cell VM. | Frank's Blog</title>
   
 
 
@@ -198,7 +198,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">goldginkgo's Blog</span>
+        <span class="site-title">Frank's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -382,13 +382,13 @@
     <link itemprop="mainEntityOfPage" href="http://goldginkgo.github.io/2018/06/30/How-to-find-apps-with-high-CPU-usage-for-a-Diego-cell-VM/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="goldginkgo">
-      <meta itemprop="description" content="Hope is a good thing.">
+      <meta itemprop="name" content="Frank Dai">
+      <meta itemprop="description" content="Coding, DevOps, Cloud">
       <meta itemprop="image" content="/uploads/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="goldginkgo's Blog">
+      <meta itemprop="name" content="Frank's Blog">
     </span>
 
     
@@ -467,7 +467,7 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                <span title="Symbols count in article">5.6k</span>
+                <span title="Symbols count in article">5.7k</span>
               
 
               
@@ -499,31 +499,15 @@
       
 
       
-        <p>According to <a href="https://docs.cloudfoundry.org/concepts/container-security.html" target="_blank" rel="noopener">Understanding Container Security</a>, each container in Cloud Foundry use a fair share of CPU relative to the other containers. However, an app container can use much higher CPU resources when other containers in the same Diego Cell VM are idle if we don’t set limitation for CPU usage of app containsers.</p>
-<p>It would be rather difficult to figure out the apps that is causing the trouble if we don’t have application level monitoring.</p>
-<a id="more"></a>
+        <p>According to <a href="https://docs.cloudfoundry.org/concepts/container-security.html" target="_blank" rel="noopener">Understanding Container Security</a>, each container in Cloud Foundry use a fair share of CPU relative to the other containers. However, an app container can use much higher CPU resources when other containers in the same Diego Cell VM are idle if we don’t set limitation for CPU usage of app containsers.<br><a id="more"></a><br>It would be rather difficult to figure out the apps that is causing the trouble if we don’t have application level monitoring.</p>
 <p>One way to achieve our goal is to use Cloud Foundry <a href="https://github.com/ECSTeam/cloudfoundry-top-plugin" target="_blank" rel="noopener">top</a> plugin. But here I also want to show the procedures on how to do it manually.</p>
 <p>Before we actually start, I want to give some steps on how to find the Diego Cell VM information based on an application instace.</p>
-<ol>
-<li><p>cf login to your org and space, use commands below to get IP address of the cell. CPU and Memory usage is also shown in this command.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$ cf app web-app-bb --guid</span><br><span class="line">c07cf94e-3c43-41b6-9e1b-e77231fa2058</span><br><span class="line">$ cf curl /v2/apps/c07cf94e-3c43-41b6-9e1b-e77231fa2058/stats</span><br><span class="line">&#123;</span><br><span class="line">   &quot;0&quot;: &#123;</span><br><span class="line">      &quot;state&quot;: &quot;RUNNING&quot;,</span><br><span class="line">      &quot;isolation_segment&quot;: null,</span><br><span class="line">      &quot;stats&quot;: &#123;</span><br><span class="line">         &quot;name&quot;: &quot;web-app-bb&quot;,</span><br><span class="line">         &quot;uris&quot;: [</span><br><span class="line">            &quot;web-app-bb.apps.&lt;url&gt;&quot;</span><br><span class="line">         ],</span><br><span class="line">         &quot;host&quot;: &quot;10.48.16.166&quot;,</span><br><span class="line">         &quot;port&quot;: 61001,</span><br><span class="line">         &quot;uptime&quot;: 114,</span><br><span class="line">         &quot;mem_quota&quot;: 67108864,</span><br><span class="line">         &quot;disk_quota&quot;: 1073741824,</span><br><span class="line">         &quot;fds_quota&quot;: 16384,</span><br><span class="line">         &quot;usage&quot;: &#123;</span><br><span class="line">            &quot;time&quot;: &quot;2018-12-02T08:25:52+00:00&quot;,</span><br><span class="line">            &quot;cpu&quot;: 0.0036034101653391625,</span><br><span class="line">            &quot;mem&quot;: 16740352,</span><br><span class="line">            &quot;disk&quot;: 185126912</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Login to Bosh, and execute the following command to ssh to the Diego cell VM.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ bosh -e pcf log-in</span><br><span class="line">$ bosh -e pcf -d cf-c16bf7a74c8a95e1e6eb vms | grep 10.48.16.166</span><br><span class="line">diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd                         running PCF-QA-AZ3  10.48.16.166    vm-dd56c1cc-1edf-44a7-81ff-6ce22a32d9dc ert.custom2     -</span><br><span class="line">$ bosh -e pcf -d cf-c16bf7a74c8a95e1e6eb ssh diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h2 id="Mapping-of-Diego-Cell-and-Cloud-Foundry-apps"><a href="#Mapping-of-Diego-Cell-and-Cloud-Foundry-apps" class="headerlink" title="Mapping of Diego Cell and Cloud Foundry apps"></a>Mapping of Diego Cell and Cloud Foundry apps</h2><h3 id="Get-mapping-information-of-Diego-Cell-and-Cloud-Foundry-apps"><a href="#Get-mapping-information-of-Diego-Cell-and-Cloud-Foundry-apps" class="headerlink" title="Get mapping information of Diego Cell and Cloud Foundry apps"></a>Get mapping information of Diego Cell and Cloud Foundry apps</h3><p>cf login to your org and space, use commands below to get IP address of the cell. CPU and Memory usage is also shown in this command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">$ cf app web-app-bb --guid</span><br><span class="line">c07cf94e-3c43-41b6-9e1b-e77231fa2058</span><br><span class="line">$ cf curl /v2/apps/c07cf94e-3c43-41b6-9e1b-e77231fa2058/stats</span><br><span class="line">&#123;</span><br><span class="line">   &quot;0&quot;: &#123;</span><br><span class="line">      &quot;state&quot;: &quot;RUNNING&quot;,</span><br><span class="line">      &quot;isolation_segment&quot;: null,</span><br><span class="line">      &quot;stats&quot;: &#123;</span><br><span class="line">         &quot;name&quot;: &quot;web-app-bb&quot;,</span><br><span class="line">         &quot;uris&quot;: [</span><br><span class="line">            &quot;web-app-bb.apps.&lt;url&gt;&quot;</span><br><span class="line">         ],</span><br><span class="line">         &quot;host&quot;: &quot;10.48.16.166&quot;,</span><br><span class="line">         &quot;port&quot;: 61001,</span><br><span class="line">         &quot;uptime&quot;: 114,</span><br><span class="line">         &quot;mem_quota&quot;: 67108864,</span><br><span class="line">         &quot;disk_quota&quot;: 1073741824,</span><br><span class="line">         &quot;fds_quota&quot;: 16384,</span><br><span class="line">         &quot;usage&quot;: &#123;</span><br><span class="line">            &quot;time&quot;: &quot;2018-12-02T08:25:52+00:00&quot;,</span><br><span class="line">            &quot;cpu&quot;: 0.0036034101653391625,</span><br><span class="line">            &quot;mem&quot;: 16740352,</span><br><span class="line">            &quot;disk&quot;: 185126912</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="SSH-to-Diego-cell-VM"><a href="#SSH-to-Diego-cell-VM" class="headerlink" title="SSH to Diego cell VM"></a>SSH to Diego cell VM</h3><p>Login to Bosh, and execute the following command to ssh to the Diego cell VM.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ bosh -e pcf log-in</span><br><span class="line">$ bosh -e pcf -d cf-c16bf7a74c8a95e1e6eb vms | grep 10.48.16.166</span><br><span class="line">diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd                         running PCF-QA-AZ3  10.48.16.166    vm-dd56c1cc-1edf-44a7-81ff-6ce22a32d9dc ert.custom2     -</span><br><span class="line">$ bosh -e pcf -d cf-c16bf7a74c8a95e1e6eb ssh diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd</span><br></pre></td></tr></table></figure></p>
 <p>Now let’s go on with the steps to find applications based on the Deigo cell VM.</p>
-<ol>
-<li><p>Login to Diego cell VM and check the stats on the VM. You will get resulst like following, first half of process_guid is the actuall App GUID.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd:~$ cd /var/vcap/jobs/rep/config/certs; curl -k -s https://localhost:1801/state --cert server.crt --key server.key | python -m json.tool</span><br><span class="line">&#123;</span><br><span class="line">    &quot;AvailableResources&quot;: &#123;</span><br><span class="line">        &quot;Containers&quot;: 236,</span><br><span class="line">        &quot;DiskMB&quot;: 173866,</span><br><span class="line">        &quot;MemoryMB&quot;: 52485</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;Evacuating&quot;: false,</span><br><span class="line">    &quot;LRPs&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;DiskMB&quot;: 1024,</span><br><span class="line">            &quot;MaxPids&quot;: 0,</span><br><span class="line">            &quot;MemoryMB&quot;: 1024,</span><br><span class="line">            &quot;PlacementTags&quot;: null,</span><br><span class="line">            &quot;RootFs&quot;: &quot;preloaded:cflinuxfs2&quot;,</span><br><span class="line">            &quot;VolumeDrivers&quot;: [],</span><br><span class="line">            &quot;domain&quot;: &quot;cf-apps&quot;,</span><br><span class="line">            &quot;index&quot;: 0,</span><br><span class="line">            &quot;instance_guid&quot;: &quot;30525d4f-81ab-4cf3-7c61-bb6f&quot;,</span><br><span class="line">            &quot;process_guid&quot;: &quot;75a52aba-3eab-429a-ad6f-160619241e2d-55c2deda-cf67-4d2b-9f1c-8daf2bbeeea0&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">...</span><br><span class="line">    &quot;TotalResources&quot;: &#123;</span><br><span class="line">        &quot;Containers&quot;: 249,</span><br><span class="line">        &quot;DiskMB&quot;: 184938,</span><br><span class="line">        &quot;MemoryMB&quot;: 64429</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Get all app GUIDs using commands below.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd:/var/vcap/jobs/rep/config/certs$ cd /var/vcap/jobs/rep/config/certs; curl -k -s https://localhost:1801/state --cert server.crt --key server.key | python -m json.tool | grep &quot;process_guid&quot; |cut -d &apos;:&apos; -f2|cut -c 3-38</span><br><span class="line">c07cf94e-3c43-41b6-9e1b-e77231fa2058</span><br><span class="line">656cd296-b2f4-4c4d-a82d-8079763d3e8a</span><br><span class="line">5f159b3d-6e61-4d00-9fca-deee3f035c57</span><br><span class="line">40b135af-c7c7-4ebd-af2e-984b2b5ce262</span><br><span class="line">382ce123-c13c-472f-ab74-5265dc984714</span><br><span class="line">2044e186-63bd-494e-8559-e28fd3e35e28</span><br><span class="line">0409effc-f11a-4dc7-a6e4-15282e234a53</span><br><span class="line">fcf52090-7c8a-45db-90f6-29f25fa0be53</span><br><span class="line">048b4d26-4652-4c85-8015-4bb2be42aeff</span><br><span class="line">8e3ba265-a0df-4b07-a34a-aaea3158e090</span><br><span class="line">75a52aba-3eab-429a-ad6f-160619241e2d</span><br><span class="line">d048268a-e60b-481a-a5cc-ff39fdbf1eb2</span><br><span class="line">e7428432-b459-4111-b813-4fb6dfc7884f</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Login to Cloud Foundry with admin account and using following shell script to get apps names. app_guids is a file with contents from previous step.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">filename=&quot;app_guids&quot;</span><br><span class="line">cat $filename | while read LINE</span><br><span class="line">do</span><br><span class="line">   echo $LINE</span><br><span class="line">   cf curl /v2/apps/$LINE | grep &quot;\&quot;name\&quot;:&quot;</span><br><span class="line">   cf curl /v2/apps/$LINE | grep &quot;\&quot;cpu\&quot;:&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h2 id="Find-applications-on-a-Deigo-cell-VM"><a href="#Find-applications-on-a-Deigo-cell-VM" class="headerlink" title="Find applications on a Deigo cell VM"></a>Find applications on a Deigo cell VM</h2><h3 id="Check-stats-on-Diego-cell"><a href="#Check-stats-on-Diego-cell" class="headerlink" title="Check stats on Diego cell"></a>Check stats on Diego cell</h3><p>Login to Diego cell VM and check the stats on the VM. You will get resulst like following, first half of process_guid is the actuall App GUID.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd:~$ cd /var/vcap/jobs/rep/config/certs; curl -k -s https://localhost:1801/state --cert server.crt --key server.key | python -m json.tool</span><br><span class="line">&#123;</span><br><span class="line">    &quot;AvailableResources&quot;: &#123;</span><br><span class="line">        &quot;Containers&quot;: 236,</span><br><span class="line">        &quot;DiskMB&quot;: 173866,</span><br><span class="line">        &quot;MemoryMB&quot;: 52485</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;Evacuating&quot;: false,</span><br><span class="line">    &quot;LRPs&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;DiskMB&quot;: 1024,</span><br><span class="line">            &quot;MaxPids&quot;: 0,</span><br><span class="line">            &quot;MemoryMB&quot;: 1024,</span><br><span class="line">            &quot;PlacementTags&quot;: null,</span><br><span class="line">            &quot;RootFs&quot;: &quot;preloaded:cflinuxfs2&quot;,</span><br><span class="line">            &quot;VolumeDrivers&quot;: [],</span><br><span class="line">            &quot;domain&quot;: &quot;cf-apps&quot;,</span><br><span class="line">            &quot;index&quot;: 0,</span><br><span class="line">            &quot;instance_guid&quot;: &quot;30525d4f-81ab-4cf3-7c61-bb6f&quot;,</span><br><span class="line">            &quot;process_guid&quot;: &quot;75a52aba-3eab-429a-ad6f-160619241e2d-55c2deda-cf67-4d2b-9f1c-8daf2bbeeea0&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">...</span><br><span class="line">    &quot;TotalResources&quot;: &#123;</span><br><span class="line">        &quot;Containers&quot;: 249,</span><br><span class="line">        &quot;DiskMB&quot;: 184938,</span><br><span class="line">        &quot;MemoryMB&quot;: 64429</span><br><span class="line">    &#125;,</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<h3 id="Get-all-app-GUIDs-on-Diego-cell"><a href="#Get-all-app-GUIDs-on-Diego-cell" class="headerlink" title="Get all app GUIDs on Diego cell"></a>Get all app GUIDs on Diego cell</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">diego_cell/9dd712e7-31d2-4d44-845f-91bd7495e9bd:/var/vcap/jobs/rep/config/certs$ cd /var/vcap/jobs/rep/config/certs; curl -k -s https://localhost:1801/state --cert server.crt --key server.key | python -m json.tool | grep &quot;process_guid&quot; |cut -d &apos;:&apos; -f2|cut -c 3-38</span><br><span class="line">c07cf94e-3c43-41b6-9e1b-e77231fa2058</span><br><span class="line">656cd296-b2f4-4c4d-a82d-8079763d3e8a</span><br><span class="line">5f159b3d-6e61-4d00-9fca-deee3f035c57</span><br><span class="line">40b135af-c7c7-4ebd-af2e-984b2b5ce262</span><br><span class="line">382ce123-c13c-472f-ab74-5265dc984714</span><br><span class="line">2044e186-63bd-494e-8559-e28fd3e35e28</span><br><span class="line">0409effc-f11a-4dc7-a6e4-15282e234a53</span><br><span class="line">fcf52090-7c8a-45db-90f6-29f25fa0be53</span><br><span class="line">048b4d26-4652-4c85-8015-4bb2be42aeff</span><br><span class="line">8e3ba265-a0df-4b07-a34a-aaea3158e090</span><br><span class="line">75a52aba-3eab-429a-ad6f-160619241e2d</span><br><span class="line">d048268a-e60b-481a-a5cc-ff39fdbf1eb2</span><br><span class="line">e7428432-b459-4111-b813-4fb6dfc7884f</span><br></pre></td></tr></table></figure>
+<h3 id="Get-apps-with-CPU-info"><a href="#Get-apps-with-CPU-info" class="headerlink" title="Get apps with CPU info"></a>Get apps with CPU info</h3><p>Login to Cloud Foundry with admin account and using following shell script to get apps names. app_guids is a file with contents from previous step.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">filename=&quot;app_guids&quot;</span><br><span class="line">cat $filename | while read LINE</span><br><span class="line">do</span><br><span class="line">   echo $LINE</span><br><span class="line">   cf curl /v2/apps/$LINE | grep &quot;\&quot;name\&quot;:&quot;</span><br><span class="line">   cf curl /v2/apps/$LINE | grep &quot;\&quot;cpu\&quot;:&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
 <p>Here is a sample result:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ sh script</span><br><span class="line">c07cf94e-3c43-41b6-9e1b-e77231fa2058</span><br><span class="line">      &quot;name&quot;: &quot;web-app-bb&quot;,</span><br><span class="line">            &quot;cpu&quot;: 0.0026490531155109625,</span><br><span class="line">656cd296-b2f4-4c4d-a82d-8079763d3e8a</span><br><span class="line">      &quot;name&quot;: &quot;connection-test&quot;,</span><br><span class="line">            &quot;cpu&quot;: 0.0008588435074484718,</span><br><span class="line">            &quot;cpu&quot;: 0.0009525608833325616,</span><br><span class="line">0409effc-f11a-4dc7-a6e4-15282e234a53</span><br><span class="line">      &quot;name&quot;: &quot;apps-manager-js-blue&quot;,</span><br><span class="line">            &quot;cpu&quot;: 7.13585021377469e-06,</span><br><span class="line">            &quot;cpu&quot;: 8.020481371308023e-06,</span><br><span class="line">            &quot;cpu&quot;: 7.091829884025554e-06,</span><br><span class="line">            &quot;cpu&quot;: 0.0,</span><br><span class="line">            &quot;cpu&quot;: 0.0,</span><br><span class="line">            &quot;cpu&quot;: 0.0,</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
 
       
@@ -553,7 +537,7 @@
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="goldginkgo Alipay">
+        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="Frank Dai Alipay">
         <p>Alipay</p>
       </div>
     
@@ -642,15 +626,24 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="goldginkgo">
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="Frank Dai">
             
-              <p class="site-author-name" itemprop="name">goldginkgo</p>
-              <p class="site-description motion-element" itemprop="description">Hope is a good thing.</p>
+              <p class="site-author-name" itemprop="name">Frank Dai</p>
+              <p class="site-description motion-element" itemprop="description">Coding, DevOps, Cloud</p>
           </div>
 
           
@@ -783,6 +776,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mapping-of-Diego-Cell-and-Cloud-Foundry-apps"><span class="nav-number">1.</span> <span class="nav-text">Mapping of Diego Cell and Cloud Foundry apps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Get-mapping-information-of-Diego-Cell-and-Cloud-Foundry-apps"><span class="nav-number">1.1.</span> <span class="nav-text">Get mapping information of Diego Cell and Cloud Foundry apps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH-to-Diego-cell-VM"><span class="nav-number">1.2.</span> <span class="nav-text">SSH to Diego cell VM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Find-applications-on-a-Deigo-cell-VM"><span class="nav-number">2.</span> <span class="nav-text">Find applications on a Deigo cell VM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Check-stats-on-Diego-cell"><span class="nav-number">2.1.</span> <span class="nav-text">Check stats on Diego cell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Get-all-app-GUIDs-on-Diego-cell"><span class="nav-number">2.2.</span> <span class="nav-text">Get all app GUIDs on Diego cell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Get-apps-with-CPU-info"><span class="nav-number">2.3.</span> <span class="nav-text">Get apps with CPU info</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -807,7 +816,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">goldginkgo</span>
+  <span class="author" itemprop="copyrightHolder">Frank Dai</span>
 
   
     <span class="post-meta-divider">|</span>
@@ -815,7 +824,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">24k</span>
+    <span title="Symbols count total">25k</span>
   
 
   

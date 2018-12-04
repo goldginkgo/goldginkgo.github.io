@@ -113,17 +113,17 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to Use Cloud Foundry Services From outside the Cloud Envivonment">
 <meta property="og:url" content="http://goldginkgo.github.io/2018/08/17/How-to-Use-Cloud-Foundry-Services-From-outside-the-Cloud-Envivonment/index.html">
-<meta property="og:site_name" content="goldginkgo&#39;s Blog">
+<meta property="og:site_name" content="Frank&#39;s Blog">
 <meta property="og:description" content="Based on NGINX buildpack and TCP routing feature in Cloud Foundry, we can implement an NGINX app on cloud foundry which acts as a reverse proxy for Cloud Foundry services. By accessing the app, we wil">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-03T13:56:38.681Z">
+<meta property="og:updated_time" content="2018-12-04T00:19:09.254Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to Use Cloud Foundry Services From outside the Cloud Envivonment">
 <meta name="twitter:description" content="Based on NGINX buildpack and TCP routing feature in Cloud Foundry, we can implement an NGINX app on cloud foundry which acts as a reverse proxy for Cloud Foundry services. By accessing the app, we wil">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="goldginkgo's Blog" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Frank's Blog" type="application/atom+xml">
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>How to Use Cloud Foundry Services From outside the Cloud Envivonment | goldginkgo's Blog</title>
+  <title>How to Use Cloud Foundry Services From outside the Cloud Envivonment | Frank's Blog</title>
   
 
 
@@ -198,7 +198,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">goldginkgo's Blog</span>
+        <span class="site-title">Frank's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -382,13 +382,13 @@
     <link itemprop="mainEntityOfPage" href="http://goldginkgo.github.io/2018/08/17/How-to-Use-Cloud-Foundry-Services-From-outside-the-Cloud-Envivonment/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="goldginkgo">
-      <meta itemprop="description" content="Hope is a good thing.">
+      <meta itemprop="name" content="Frank Dai">
+      <meta itemprop="description" content="Coding, DevOps, Cloud">
       <meta itemprop="image" content="/uploads/avatar.jpeg">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="goldginkgo's Blog">
+      <meta itemprop="name" content="Frank's Blog">
     </span>
 
     
@@ -467,7 +467,7 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                <span title="Symbols count in article">2.1k</span>
+                <span title="Symbols count in article">2.3k</span>
               
 
               
@@ -500,31 +500,15 @@
 
       
         <p>Based on NGINX buildpack and TCP routing feature in Cloud Foundry, we can implement an NGINX app on cloud foundry which acts as a reverse proxy for Cloud Foundry services.</p>
-<p>By accessing the app, we will be able to use Cloud Foundry services (RabbitMQ, Redis, …) from outside Cloud Foundry.</p>
-<p>Let’s take RabbitMQ/AMQP protocol for example, here are the steps:</p>
-<a id="more"></a>
-<ol>
-<li><p>Login to your org and space in Cloud Foundry, add a RabbitMQ service instance.</p>
-</li>
-<li><p>Create a TCP route with the following command, and get TCP port information using “cf routes” command.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cf create-route &lt;space-name&gt; tcp1.&lt;cloud-foundry-domain&gt; --random-port</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Create a directory on your laptop. Create nginx.conf file in the directory with following contents.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;module &quot;ngx_stream_module&quot;&#125;&#125;</span><br><span class="line"></span><br><span class="line">worker_processes 1;</span><br><span class="line">daemon off;</span><br><span class="line"> </span><br><span class="line">error_log stderr;</span><br><span class="line">events &#123; worker_connections 1024; &#125;</span><br><span class="line"> </span><br><span class="line">stream &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen &#123;&#123;port&#125;&#125;;</span><br><span class="line">        proxy_pass &#123;&#123;env &quot;RHOST&quot;&#125;&#125;:5672;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Create manifest.yml file in the directory with the following content. Replace the values with actual ones. Just replace <rabbitmq-host-url> with 127.0.0.1 if you don’t have the IP/FQDN for RabbitMQ.</rabbitmq-host-url></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">applications:</span><br><span class="line">- name: &lt;app-name&gt;</span><br><span class="line">  buildpack: https://github.com/cloudfoundry/nginx-buildpack.git</span><br><span class="line">  routes:</span><br><span class="line">  - route: tcp1.&lt;region&gt;.bosch-iot-cloud.com:&lt;tcp-port&gt;</span><br><span class="line">  env:</span><br><span class="line">    RHOST: &lt;rabbitmq-host-url&gt;</span><br><span class="line">  services:</span><br><span class="line">  - &lt;rabbitmq-service-name&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>cf push</p>
-</li>
-<li><p>Get RabbitMQ hostname from apps manager UI and change “RHOST” with actual value in manifest.yml and execute “cf push” again. Skip this if you already entered the right value in step 4.</p>
-</li>
-<li><p>Whitelist the TCP route for you app to use if necessary.</p>
-</li>
-</ol>
-<p>Now you can develop apps which will be deployed outside Cloud Foundry to use RabbitMQ service in Cloud Foundry.</p>
-<p>Just get RabbitMQ connection information from Cloud Foundry, and replace RabbitMQ hostname and port with your NGINX app’s tcp route.</p>
-<p>However, normally this is not allowed as we may have security concerns on using service outside Cloud Foundry.</p>
+<p>By accessing the app, we will be able to use Cloud Foundry services (RabbitMQ, Redis, …) from outside Cloud Foundry.<br><a id="more"></a><br>Let’s take RabbitMQ/AMQP protocol for example, here are the steps:</p>
+<h3 id="Add-RadditMQ-service-in-Cloud-Foundry"><a href="#Add-RadditMQ-service-in-Cloud-Foundry" class="headerlink" title="Add RadditMQ service in Cloud Foundry"></a>Add RadditMQ service in Cloud Foundry</h3><p>Login to your org and space in Cloud Foundry, add a RabbitMQ service instance.</p>
+<h3 id="Create-TCP-route"><a href="#Create-TCP-route" class="headerlink" title="Create TCP route"></a>Create TCP route</h3><p>Create a TCP route with the following command, and get TCP port information using “cf routes” command.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cf create-route &lt;space-name&gt; tcp1.&lt;cloud-foundry-domain&gt; --random-port</span><br></pre></td></tr></table></figure></p>
+<h3 id="Configure-nginx-conf"><a href="#Configure-nginx-conf" class="headerlink" title="Configure nginx.conf"></a>Configure nginx.conf</h3><p>Create a directory on your laptop. Create nginx.conf file in the directory with following contents.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;module &quot;ngx_stream_module&quot;&#125;&#125;</span><br><span class="line"></span><br><span class="line">worker_processes 1;</span><br><span class="line">daemon off;</span><br><span class="line"> </span><br><span class="line">error_log stderr;</span><br><span class="line">events &#123; worker_connections 1024; &#125;</span><br><span class="line"> </span><br><span class="line">stream &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen &#123;&#123;port&#125;&#125;;</span><br><span class="line">        proxy_pass &#123;&#123;env &quot;RHOST&quot;&#125;&#125;:5672;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Create-app’s-manifest"><a href="#Create-app’s-manifest" class="headerlink" title="Create app’s manifest"></a>Create app’s manifest</h3><p>Create manifest.yml file in the directory with the following content. Replace the values with actual ones. Just replace <rabbitmq-host-url> with 127.0.0.1 if you don’t have the IP/FQDN for RabbitMQ.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">applications:</span><br><span class="line">- name: &lt;app-name&gt;</span><br><span class="line">  buildpack: https://github.com/cloudfoundry/nginx-buildpack.git</span><br><span class="line">  routes:</span><br><span class="line">  - route: tcp1.&lt;region&gt;.bosch-iot-cloud.com:&lt;tcp-port&gt;</span><br><span class="line">  env:</span><br><span class="line">    RHOST: &lt;rabbitmq-host-url&gt;</span><br><span class="line">  services:</span><br><span class="line">  - &lt;rabbitmq-service-name&gt;</span><br></pre></td></tr></table></figure></rabbitmq-host-url></p>
+<h3 id="Push-app"><a href="#Push-app" class="headerlink" title="Push app"></a>Push app</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cf push</span><br></pre></td></tr></table></figure>
+<h3 id="Change-RabbitMQ-setting-in-manifest-yml"><a href="#Change-RabbitMQ-setting-in-manifest-yml" class="headerlink" title="Change RabbitMQ setting in manifest.yml"></a>Change RabbitMQ setting in manifest.yml</h3><p>Get RabbitMQ hostname from apps manager UI and change “RHOST” with actual value in manifest.yml and execute “cf push” again. Skip this if you already entered the right value in step 4.</p>
+<h3 id="Whitelist-the-route"><a href="#Whitelist-the-route" class="headerlink" title="Whitelist the route"></a>Whitelist the route</h3><p>Whitelist the TCP route for you app to use if necessary.</p>
+<p>Now you can develop apps which will be deployed outside Cloud Foundry to use RabbitMQ service in Cloud Foundry. Just get RabbitMQ connection information from Cloud Foundry, and replace RabbitMQ hostname and port with your NGINX app’s tcp route. However, normally this is not allowed as we may have security concerns on using service outside Cloud Foundry.</p>
 
       
     </div>
@@ -553,7 +537,7 @@
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="goldginkgo Alipay">
+        <img id="alipay_qr" src="/uploads/alipay.jpeg" alt="Frank Dai Alipay">
         <p>Alipay</p>
       </div>
     
@@ -642,15 +626,24 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="goldginkgo">
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="Frank Dai">
             
-              <p class="site-author-name" itemprop="name">goldginkgo</p>
-              <p class="site-description motion-element" itemprop="description">Hope is a good thing.</p>
+              <p class="site-author-name" itemprop="name">Frank Dai</p>
+              <p class="site-description motion-element" itemprop="description">Coding, DevOps, Cloud</p>
           </div>
 
           
@@ -783,6 +776,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Add-RadditMQ-service-in-Cloud-Foundry"><span class="nav-number">1.</span> <span class="nav-text">Add RadditMQ service in Cloud Foundry</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-TCP-route"><span class="nav-number">2.</span> <span class="nav-text">Create TCP route</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configure-nginx-conf"><span class="nav-number">3.</span> <span class="nav-text">Configure nginx.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-app’s-manifest"><span class="nav-number">4.</span> <span class="nav-text">Create app’s manifest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Push-app"><span class="nav-number">5.</span> <span class="nav-text">Push app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Change-RabbitMQ-setting-in-manifest-yml"><span class="nav-number">6.</span> <span class="nav-text">Change RabbitMQ setting in manifest.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Whitelist-the-route"><span class="nav-number">7.</span> <span class="nav-text">Whitelist the route</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -807,7 +816,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">goldginkgo</span>
+  <span class="author" itemprop="copyrightHolder">Frank Dai</span>
 
   
     <span class="post-meta-divider">|</span>
@@ -815,7 +824,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">24k</span>
+    <span title="Symbols count total">25k</span>
   
 
   
